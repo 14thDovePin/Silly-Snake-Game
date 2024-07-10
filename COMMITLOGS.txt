@@ -1,3 +1,14 @@
+TODO LIST
+- Create a good pygame foundation.
+
+
+
+Added a todo list.
+
+- Created a todo list.
+
+
+
 Template's Initial Commit
 
 - Added the following files:
