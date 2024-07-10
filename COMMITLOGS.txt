@@ -3,6 +3,14 @@ TODO LIST
 
 
 
+Added basic key movements.
+
+- Added basic key movements.
+- Added/refined comments.
+- Refactored code.
+
+
+
 Added external methods.
 
 - Created 2 files: `display.py` and `input.py`.

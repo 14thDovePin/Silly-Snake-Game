@@ -9,7 +9,11 @@ UPS = 60
 class Game:
 
     # Import external methods.
-    from input import _check_events
+    from input import (
+        _check_events,
+        _check_keydown_events,
+        _check_keyup_events
+    )
     from display import _display
 
     def __init__(self):
