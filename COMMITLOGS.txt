@@ -3,9 +3,10 @@ TODO LIST
 
 
 
-Added a todo list.
+Implemented Pygame
 
 - Created a todo list.
+- Implemented pygame at a very basic level.
 
 
 
