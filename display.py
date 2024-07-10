@@ -2,7 +2,8 @@ import pygame
 
 
 def _display(self):
-    """Update screen related assets."""
+    """Game Screen Assets"""
     self.screen.fill("gray")
+    self.snake.draw()
 
     pygame.display.flip()

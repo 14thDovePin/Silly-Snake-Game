@@ -3,6 +3,19 @@ TODO LIST
 
 
 
+Created a basic moving box.
+
+- Created file/s:
+  + snake.py
+  + udpate.py
+- Added rectangle and velocity to snake as
+  well as drawing and input capabilities.
+- Added FPS to the window title.
+-
+- refactored code.
+
+
+
 Added basic key movements.
 
 - Added basic key movements.

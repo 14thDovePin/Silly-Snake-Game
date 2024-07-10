@@ -15,7 +15,7 @@ def _check_events(self):
             self._check_keyup_events(event)
 
 def _check_keydown_events(self, event):
-    # Basic movement.
+    # Print basic movements.
     if event.key == pygame.K_w or event.key == pygame.K_UP:
         print('up')
     elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
@@ -24,6 +24,9 @@ def _check_keydown_events(self, event):
         print('left')
     elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
         print('right')
+
+    # Pass input events.
+    self.snake.input(event.key)
 
 def _check_keyup_events(self, event):
     pass
