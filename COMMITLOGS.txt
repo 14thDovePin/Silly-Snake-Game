@@ -3,6 +3,13 @@ TODO LIST
 
 
 
+Added external methods.
+
+- Created 2 files: `display.py` and `input.py`.
+- Implemented display and input methods.
+
+
+
 Implemented Pygame
 
 - Created a todo list.

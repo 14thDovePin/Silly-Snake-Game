@@ -1,23 +1,36 @@
 import pygame
 
 
+WINDOW_TITLE = 'A Silly Snake Game'
 RESOLUTION = (1280, 720)
 UPS = 60
 
 
 class Game:
+
+    # Import external methods.
+    from input import _check_events
+    from display import _display
+
     def __init__(self):
         """Initialize Pygame"""
         pygame.init()
+        pygame.display.set_caption(WINDOW_TITLE)
         self.screen = pygame.display.set_mode(RESOLUTION)
         self.clock = pygame.time.Clock()
         self.cycle = True
 
     def start(self):
-        # Limit Updates per Second
-        self.clock.tick(UPS)
+        """Run the game's life cycle."""
         while self.cycle:
-            pass
+            # Limit Updates per Second
+            self.clock.tick(UPS)
+
+            # Check Events
+            self._check_events()
+
+            # Update Display
+            self._display()
 
 
 if __name__ == '__main__':
