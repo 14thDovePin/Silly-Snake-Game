@@ -1,5 +1,16 @@
 TODO LIST
 - Create a good pygame foundation.
+- Add input queu for more control feel
+
+
+
+Added automatic movement and direction control to snake.
+
+- added direction control to snake
+- added automatic movement to snake
+- added instant turn direction for more feel of control
+- fixed snake bug that lets you turn 180°
+- refactored code.
 
 
 
