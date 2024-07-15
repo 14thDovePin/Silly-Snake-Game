@@ -13,8 +13,7 @@ class Game:
     # Import external methods.
     from input import (
         _check_events,
-        _check_keydown_events,
-        _check_keyup_events
+        _keydown_triggers,
     )
     from update import _update
     from display import _display

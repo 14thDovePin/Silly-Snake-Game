@@ -4,6 +4,14 @@ TODO LIST
 
 
 
+Refactored Code
+
+- attempted to create an input buffer system.
+- added a movement control buffer/queue for more control feel.
+- refactored code
+
+
+
 Added automatic movement and direction control to snake.
 
 - added direction control to snake

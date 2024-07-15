@@ -2,31 +2,38 @@ import sys
 
 import pygame
 
+from pygame import *
+from pygame.time import set_timer
+
+from random import randint
+
 
 def _check_events(self):
     """Checks user related events."""
-    # Grab and check events and its type.
-    for event in pygame.event.get():
+    # grab events
+    events = pygame.event.get()
+
+    for event in events:
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            self._check_keydown_events(event)
-        if event.type == pygame.KEYUP:
-            self._check_keyup_events(event)
+            self._keydown_triggers(event)
 
-def _check_keydown_events(self, event):
+def _keydown_triggers(self, event):
+    key = event.key
+
     # Print basic movements.
-    if event.key == pygame.K_w or event.key == pygame.K_UP:
+    if check_key(key, K_w, K_UP):
         print('up')
-    elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+    if check_key(key, K_s, K_DOWN):
         print('down')
-    elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
+    if check_key(key, K_a, K_LEFT):
         print('left')
-    elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+    if check_key(key, K_d, K_RIGHT):
         print('right')
 
-    # Pass input events.
-    self.snake.input(event.key)
+    # Pass event to player object
+    self.snake.input(event)
 
-def _check_keyup_events(self, event):
-    pass
+def check_key(key, *match):
+    if key in match : return True

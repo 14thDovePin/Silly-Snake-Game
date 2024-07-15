@@ -1,5 +1,7 @@
 from pygame import *
 
+from input import check_key
+
 
 class Snake:
     """The snake of the game!"""
@@ -12,6 +14,13 @@ class Snake:
         self._tps = 1/self.move_speed
         self.direction = 'n'  # north south east west
         self._lock_direction = False
+
+        # input buffer
+        self._ib_state = True
+        self._ib_dt = 50  # miliseconds
+        self._ib_timer = USEREVENT+1
+        self._ib_stack = []
+        self._ib_max = 5  # max no. of elements in stack
 
         self._rect = Rect(
             (0, 0),  # Left Top
@@ -27,36 +36,48 @@ class Snake:
         self._rect.centerx = self.pos.x
         self._rect.centery = self.pos.y
 
-    def input(self, key):
+    def input(self, event):
         """input updates"""
-        # basic movments
-        if not self._lock_direction \
-        and (key == K_w or key == K_UP) \
+        # buffer input
+        self._ib_stack.append(event)
+        if self._ib_state:
+            self._ib_state = False
+        else: return
+
+        key = self._ib_stack.pop(0).key
+
+        # direction control
+        if check_key(key, K_w, K_UP) \
+        and self._change_direction() \
         and not self.direction == 's':
-            self._lock_direction = True
             self.direction = 'n'
 
-        if not self._lock_direction \
-        and (key == K_s or key == K_DOWN) \
+        if check_key(key, K_s, K_DOWN) \
+        and self._change_direction() \
         and not self.direction == 'n':
-            self._lock_direction = True
             self.direction = 's'
 
-        if not self._lock_direction \
-        and (key == K_a or key == K_LEFT) \
+        if check_key(key, K_a, K_LEFT) \
+        and self._change_direction() \
         and not self.direction == 'e':
-            self._lock_direction = True
             self.direction = 'w'
 
-        if not self._lock_direction \
-        and (key == K_d or key == K_RIGHT) \
+        if check_key(key, K_d, K_RIGHT) \
+        and self._change_direction() \
         and not self.direction == 'w':
-            self._lock_direction = True
             self.direction = 'e'
 
+    def _change_direction(self):
+        if not self._lock_direction:
+            self._lock_direction = True
+            return True
+        return False
 
     def update(self, dt):
         """objet updates"""
+        # input buffer
+
+
         # Automatic Movement
         self._dt += dt
         if self._dt > self._tps:
@@ -66,6 +87,7 @@ class Snake:
 
     def _move(self):
         """move forward in current direction"""
+        self._ib_state = True
         self._lock_direction = False
         if self.direction == 'n':
             self.pos.y -= self.tile_size
