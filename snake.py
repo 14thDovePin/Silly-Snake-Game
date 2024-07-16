@@ -75,15 +75,23 @@ class Snake:
 
     def update(self, dt):
         """objet updates"""
+        self.test()
         # input buffer
 
 
-        # Automatic Movement
-        self._dt += dt
-        if self._dt > self._tps:
-            self._move()
-            self._dt -= self._tps
-        self._rect.center = (self.pos.x, self.pos.y)
+        # # Automatic Movement
+        # self._dt += dt
+        # if self._dt > self._tps:
+        #     self._move()
+        #     self._dt -= self._tps
+        # self._rect.center = (self.pos.x, self.pos.y)
+
+    def test(self):
+        '''TODO: Temporary. Remove After Use'''
+        mouse_pos = mouse.get_pos()
+        mx, my = mouse_pos[0], mouse_pos[1]
+        print(mx, my)
+        self._rect.center = (mx, my)
 
     def _move(self):
         """move forward in current direction"""

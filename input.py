@@ -8,11 +8,8 @@ from pygame.time import set_timer
 from random import randint
 
 
-def _check_events(self):
+def _process_events(self, events):
     """Checks user related events."""
-    # grab events
-    events = pygame.event.get()
-
     for event in events:
         if event.type == pygame.QUIT:
             sys.exit()

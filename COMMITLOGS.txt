@@ -4,6 +4,15 @@ TODO LIST
 
 
 
+Restructured main loop and display update.
+
+- segregated the structure of the loop
+  give display update its own flow.
+- added a temporary movement to the snake
+- refactored code
+
+
+
 Refactored Code
 
 - attempted to create an input buffer system.
