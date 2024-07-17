@@ -1,9 +1,6 @@
 import pygame
 
 
-WINDOW_TITLE = 'A Silly Snake Game'
-
-
 def _display(self, events):
     """Game Screen Assets"""
     # Clamp Upper Limit (Limit FPS)
@@ -13,12 +10,15 @@ def _display(self, events):
             update = True
     if not update: return
 
+    # Update Clock
+    self._display_clock.tick()
+
     # Display FPS in Window Title
-    self.clock.tick()
-    caption = WINDOW_TITLE + f' [{round(self.clock.get_fps())}]'
+    fps = round(self._display_clock.get_fps())
+    caption = self.window_title + f' [{fps}]'
     pygame.display.set_caption(caption)
 
-    self.screen.fill("gray")
+    self._screen.fill("gray")
     self.snake.draw()
 
     pygame.display.flip()

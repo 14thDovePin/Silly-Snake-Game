@@ -4,6 +4,14 @@ TODO LIST
 
 
 
+Implemented input buffer for snake movement.
+
+- reimplementing/fixing the input buffer
+- segregated the clocks for both ups and fps
+- refactored code
+
+
+
 Restructured main loop and display update.
 
 - segregated the structure of the loop

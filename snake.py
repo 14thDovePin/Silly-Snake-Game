@@ -11,16 +11,15 @@ class Snake:
         self._dt = 0
         self.tile_size = 45  # in pixels
         self.move_speed = 6  # tiles per second
-        self._tps = 1/self.move_speed
+        self._tps = 1000/self.move_speed  # ms/tps
         self.direction = 'n'  # north south east west
-        self._lock_direction = False
 
-        # input buffer
-        self._ib_state = True
-        self._ib_dt = 50  # miliseconds
-        self._ib_timer = USEREVENT+1
+        # Input Buffer
+        self._ib_halt = False
+        self._ib_dt = 0
+        self._ib_ft = self._tps*0.75  # fizzle time
         self._ib_stack = []
-        self._ib_max = 5  # max no. of elements in stack
+        self._ib_max = 3  # max no. of elements in stack
 
         self._rect = Rect(
             (0, 0),  # Left Top
@@ -38,65 +37,68 @@ class Snake:
 
     def input(self, event):
         """input updates"""
-        # buffer input
-        self._ib_stack.append(event)
-        if self._ib_state:
-            self._ib_state = False
-        else: return
+        # insert event to buffer stack
+        if len(self._ib_stack) <= self._ib_max:
+            self._ib_stack.append([event, self._ib_ft])
 
-        key = self._ib_stack.pop(0).key
+    def change_direction(self):
+        """change snake direction"""
+        self._ib_halt = True
 
-        # direction control
+        # extract key from stack
+        key = self._ib_stack.pop(0)[0].key
+
+        # change direction
         if check_key(key, K_w, K_UP) \
-        and self._change_direction() \
         and not self.direction == 's':
             self.direction = 'n'
 
         if check_key(key, K_s, K_DOWN) \
-        and self._change_direction() \
         and not self.direction == 'n':
             self.direction = 's'
 
         if check_key(key, K_a, K_LEFT) \
-        and self._change_direction() \
         and not self.direction == 'e':
             self.direction = 'w'
 
         if check_key(key, K_d, K_RIGHT) \
-        and self._change_direction() \
         and not self.direction == 'w':
             self.direction = 'e'
 
-    def _change_direction(self):
-        if not self._lock_direction:
-            self._lock_direction = True
-            return True
-        return False
-
     def update(self, dt):
         """objet updates"""
-        self.test()
-        # input buffer
+        # Manage Input Buffer
+        self._input_buffer(dt)
 
+        # Change Direction
+        if self._ib_stack and not self._ib_halt:
+            self.change_direction()
 
-        # # Automatic Movement
-        # self._dt += dt
-        # if self._dt > self._tps:
-        #     self._move()
-        #     self._dt -= self._tps
-        # self._rect.center = (self.pos.x, self.pos.y)
+        # Move
+        self._dt += dt
+        if self._dt > self._tps:
+            self._move()
+            self._dt -= self._tps
+        self._rect.center = (self.pos.x, self.pos.y)
 
-    def test(self):
-        '''TODO: Temporary. Remove After Use'''
-        mouse_pos = mouse.get_pos()
-        mx, my = mouse_pos[0], mouse_pos[1]
-        print(mx, my)
-        self._rect.center = (mx, my)
+    def _input_buffer(self, dt):
+        """input buffer"""
+        # if event in stack > fizzle time, remove it
+        if self._ib_stack:
+            for x, item in enumerate(self._ib_stack[:]):
+                event, event_dt = item[0], item[1]
+                if event_dt > 0:
+                    new_item = [event, event_dt-dt]
+                    self._ib_stack.remove(item)
+                    self._ib_stack.insert(x, new_item)
+                else:
+                    self._ib_stack.remove(item)
+
 
     def _move(self):
         """move forward in current direction"""
-        self._ib_state = True
-        self._lock_direction = False
+        self._ib_halt = False
+
         if self.direction == 'n':
             self.pos.y -= self.tile_size
         if self.direction == 's':
@@ -105,6 +107,10 @@ class Snake:
             self.pos.x += self.tile_size
         if self.direction == 'w':
             self.pos.x -= self.tile_size
+
+        if self._ib_stack and not self._ib_halt:
+            key = self._ib_stack[0][0].key
+            # TODO: change direction
 
     def draw(self):
         """"""
