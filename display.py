@@ -18,7 +18,8 @@ def _display(self, events):
     caption = self.window_title + f' [{fps}]'
     pygame.display.set_caption(caption)
 
-    self._screen.fill("gray")
+    self._screen.fill("#400080")
+    self.playing_field.draw(self._screen)
     self.snake.draw()
 
     pygame.display.flip()

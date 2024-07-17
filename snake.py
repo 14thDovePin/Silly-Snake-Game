@@ -6,13 +6,14 @@ from input import check_key
 class Snake:
     """The snake of the game!"""
 
-    def __init__(self, screen):
+    def __init__(self, screen, starting_rect, cell_size=45):
         self._screen = screen
         self._dt = 0
-        self.tile_size = 45  # in pixels
+        self.tile_size = cell_size  # in pixels
         self.move_speed = 6  # tiles per second
         self._tps = 1000/self.move_speed  # ms/tps
         self.direction = 'n'  # north south east west
+        self.length = 4
 
         # Input Buffer
         self._ib_halt = False
@@ -23,17 +24,16 @@ class Snake:
 
         self._rect = Rect(
             (0, 0),  # Left Top
-            (45, 45)  # Width Height
+            (cell_size, cell_size)  # Width Height
         )
 
-        self.pos = Vector2(
-            self._screen.get_width()/2,
-            self._screen.get_height()/2
-        )
+        self.pos = Vector2(starting_rect)
 
         # Center object to screen.
         self._rect.centerx = self.pos.x
         self._rect.centery = self.pos.y
+        print()
+        print(self._rect.center)
 
     def input(self, event):
         """input updates"""

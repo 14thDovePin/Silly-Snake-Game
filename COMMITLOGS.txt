@@ -1,6 +1,20 @@
 TODO LIST
-- Create a good pygame foundation.
-- Add input queu for more control feel
+- add fps & ups on screen
+- implement segment change to snake
+
+- implement menu
+- implement score system
+
+
+
+Implemented a dynamic playing area.
+
+- added new class and file for the playing field.
+- implemented field construction and creation
+- hooked up relevant information with snake
+- updated colors
+- updated todo list
+- refactored code
 
 
 

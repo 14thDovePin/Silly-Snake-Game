@@ -2,12 +2,14 @@ import sys
 
 import pygame
 
+from playing_field import PlayingField
 from snake import Snake
 
 
 WINDOW_TITLE = 'A Silly Snake Game'
 RESOLUTION = (1280, 720)
 FPS = 60
+CELL_SIZE = 45
 
 
 class Game:
@@ -34,13 +36,24 @@ class Game:
         self._display_cycle = pygame.USEREVENT+1
 
         # Initialize Objects
-        self.snake = Snake(self._screen)
+        self.playing_field = PlayingField(
+            RESOLUTION,
+            CELL_SIZE,
+        )
+        self.snake = Snake(
+            self._screen,
+            self.playing_field.starting_rect,
+            CELL_SIZE
+        )
 
     def start(self):
         """Run the game's life cycle."""
         # start display cycle timer
         fps = int(1000/FPS)
         pygame.time.set_timer(self._display_cycle, fps)
+
+        # TODO: Remove after use.
+        self.playing_field.test()
 
         # start program's main cycle
         while self.cycle:
