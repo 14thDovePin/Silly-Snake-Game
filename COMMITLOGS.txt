@@ -7,6 +7,16 @@ TODO LIST
 
 
 
+Restructured the data for the playing field.
+
+- changed blueprint for datastructure of the cells
+- removed unused functions
+- updated colors
+- refactored code
+
+
+
+
 Implemented a dynamic playing area.
 
 - added new class and file for the playing field.

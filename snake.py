@@ -7,13 +7,16 @@ class Snake:
     """The snake of the game!"""
 
     def __init__(self, screen, starting_rect, cell_size=45):
-        self._screen = screen
         self._dt = 0
+        self._screen = screen
+
         self.tile_size = cell_size  # in pixels
         self.move_speed = 6  # tiles per second
+        self.direction = 'e'  # north south east west
         self._tps = 1000/self.move_speed  # ms/tps
-        self.direction = 'n'  # north south east west
-        self.length = 4
+        self.segments = []
+
+        self.length = 1  # TODO: Remove after use.
 
         # Input Buffer
         self._ib_halt = False
@@ -22,6 +25,7 @@ class Snake:
         self._ib_stack = []
         self._ib_max = 3  # max no. of elements in stack
 
+        # First Rect
         self._rect = Rect(
             (0, 0),  # Left Top
             (cell_size, cell_size)  # Width Height
@@ -32,8 +36,6 @@ class Snake:
         # Center object to screen.
         self._rect.centerx = self.pos.x
         self._rect.centery = self.pos.y
-        print()
-        print(self._rect.center)
 
     def input(self, event):
         """input updates"""
@@ -116,6 +118,6 @@ class Snake:
         """"""
         draw.rect(
             self._screen,
-            (100, 100, 100),
+            "#669900",
             self._rect,
         )

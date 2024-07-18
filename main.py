@@ -52,9 +52,6 @@ class Game:
         fps = int(1000/FPS)
         pygame.time.set_timer(self._display_cycle, fps)
 
-        # TODO: Remove after use.
-        self.playing_field.test()
-
         # start program's main cycle
         while self.cycle:
             # Update Clock
