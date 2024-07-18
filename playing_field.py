@@ -50,7 +50,7 @@ class PlayingField:
         self.build_field()
         self._set_rects()
 
-        self.starting_rect = self.cells[0][0].center
+        self.starting_rect = self.cells[0][0].topleft
 
     def build_field(self):
         """calculate initial cell location and build data strcuture"""
@@ -105,8 +105,9 @@ class PlayingField:
     def draw(self, surface):
         """draw the field"""
         # loop through cells
-        x = 0
-        for col in self.cells:
+        for n, col in enumerate(self.cells):
+            if n % 2 == 0: x = 1
+            else: x = 0
             for rect in col:
                 x += 1
 

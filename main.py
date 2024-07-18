@@ -7,7 +7,7 @@ from snake import Snake
 
 
 WINDOW_TITLE = 'A Silly Snake Game'
-RESOLUTION = (1280, 720)
+RESOLUTION = (1600, 900)
 FPS = 60
 CELL_SIZE = 45
 
@@ -45,6 +45,10 @@ class Game:
             self.playing_field.starting_rect,
             CELL_SIZE
         )
+
+        print()
+        print(self.snake._rect.topleft)
+        print(self.snake.pos)
 
     def start(self):
         """Run the game's life cycle."""

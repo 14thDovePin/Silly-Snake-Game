@@ -15,7 +15,6 @@ class Snake:
         self.direction = 'e'  # north south east west
         self._tps = 1000/self.move_speed  # ms/tps
         self.segments = []
-
         self.length = 1  # TODO: Remove after use.
 
         # Input Buffer
@@ -25,17 +24,15 @@ class Snake:
         self._ib_stack = []
         self._ib_max = 3  # max no. of elements in stack
 
-        # First Rect
+        # Starting Rect & Pos
         self._rect = Rect(
-            (0, 0),  # Left Top
+            starting_rect,  # Left Top
             (cell_size, cell_size)  # Width Height
         )
-
-        self.pos = Vector2(starting_rect)
-
-        # Center object to screen.
-        self._rect.centerx = self.pos.x
-        self._rect.centery = self.pos.y
+        self.pos = Vector2(  # set position to center of rect
+            self._rect.centerx,
+            self._rect.centery
+        )
 
     def input(self, event):
         """input updates"""
@@ -76,11 +73,12 @@ class Snake:
         if self._ib_stack and not self._ib_halt:
             self.change_direction()
 
-        # Move
+        # Move. If time > set_time then move
+        # and update rectangle and position
         self._dt += dt
         if self._dt > self._tps:
-            self._move()
             self._dt -= self._tps
+            self._move()
         self._rect.center = (self.pos.x, self.pos.y)
 
     def _input_buffer(self, dt):
@@ -96,7 +94,6 @@ class Snake:
                 else:
                     self._ib_stack.remove(item)
 
-
     def _move(self):
         """move forward in current direction"""
         self._ib_halt = False
@@ -109,10 +106,6 @@ class Snake:
             self.pos.x += self.tile_size
         if self.direction == 'w':
             self.pos.x -= self.tile_size
-
-        if self._ib_stack and not self._ib_halt:
-            key = self._ib_stack[0][0].key
-            # TODO: change direction
 
     def draw(self):
         """"""

@@ -1,9 +1,25 @@
 TODO LIST
 - add fps & ups on screen
 - implement segment change to snake
+- implement random spawn somewhere
+  in the middle of the playing field
 
 - implement menu
 - implement score system
+
+
+
+Fixed and refactored code.
+
+- fixed a wrong attribute being sent from PlayingField to Snake...
+  p.s. took me 15 mins of tracing when the problem wasnt even in
+  the scope LMAO. Lesson learned to always take the necessary back
+  tracing or back stepping to figure things out lol lol.
+- deprecated unused code lol
+- fixed dynamic generation of playing field
+  that can improperly color the field.
+- udpated todo list
+- refactored code
 
 
 
