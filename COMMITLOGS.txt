@@ -9,6 +9,25 @@ TODO LIST
 
 
 
+Implemented segments into snake.
+
+- rearranged a bit of code.
+- found bug from `PlayingField` not centering the squares
+  within grid with regards to the set `cell_margin`.
+  regards to set
+- updated class docstring.
+- updated `.gitignore` to exclude vscode related files.
+- fixed annoying bugs that causes weird behavior
+  caused by changing local variables instead of
+  the intended values from the dict.
+- reconstructed movement and drawing
+  of the snake to fit new changes.
+- restructured snake into a dict of list of Rect
+  and Vector2 to accomodate multiple segments.
+- refactored code
+
+
+
 Fixed and refactored code.
 
 - fixed a wrong attribute being sent from PlayingField to Snake...

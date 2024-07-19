@@ -39,16 +39,13 @@ class Game:
         self.playing_field = PlayingField(
             RESOLUTION,
             CELL_SIZE,
+            10
         )
         self.snake = Snake(
             self._screen,
             self.playing_field.starting_rect,
             CELL_SIZE
         )
-
-        print()
-        print(self.snake._rect.topleft)
-        print(self.snake.pos)
 
     def start(self):
         """Run the game's life cycle."""
