@@ -1,11 +1,20 @@
 TODO LIST
 - add fps & ups on screen
-- implement segment change to snake
 - implement random spawn somewhere
   in the middle of the playing field
 
 - implement menu
 - implement score system
+
+
+
+Implemented snake spawn randomization and direction guidance.
+
+- implemented direction priority based from snake's starting zone.
+- implemented randomization on starting position of snake
+- updated todo list
+- fixed bug that can misalign the playing field.
+- refactored code
 
 
 

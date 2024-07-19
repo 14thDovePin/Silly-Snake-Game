@@ -1,3 +1,5 @@
+from random import randint
+
 from pygame import *
 
 from input import check_key
@@ -25,13 +27,14 @@ class Snake:
           segment's rectangle, and position.
     """
 
-    def __init__(self, screen, starting_rect, cell_size=45):
+    def __init__(self, screen, starting_rect, cell_size=45,
+                 move_speed=6):
         self._dt = 0
         self._screen = screen
 
         self.tile_size = cell_size  # in pixels
-        self.move_speed = 6  # tiles per second
-        self.direction = 'e'  # north south east west
+        self.move_speed = move_speed  # tiles per second
+        self.direction = self._set_direction(starting_rect)
         self._tps = 1000/self.move_speed  # ms/tps
         self.segments = {}
         self.length = 1  # TODO: Remove after use.
@@ -47,6 +50,37 @@ class Snake:
         self.add_segment(starting_rect, cell_size)
         self.add_segment(starting_rect, cell_size)
         self.add_segment(starting_rect, cell_size)
+
+    def _set_direction(self, starting_pos):
+        """returns a direction based on starting position"""
+        wsize = self._screen.get_size()
+        screen_x, screen_y = wsize[0], wsize[1]
+        x, y = starting_pos[0], starting_pos[1]
+
+        # calculate left and right ranges
+        right = screen_x - x
+        left = screen_x - right
+        # calculate top and bottom ranges
+        top = screen_y - y
+        bottom = screen_y - top
+
+        # set initial direction
+        dir = 'nesw'
+
+        # set direction to opposite of the
+        # nearest border of the coordinate
+        if left <= right: dir = dir.replace('w', '')
+        else: dir = dir.replace('e', '')
+        if top <= bottom: dir = dir.replace('n', '')
+        else: dir = dir.replace('s', '')
+        if x <= y:
+            dir = dir.replace('e', '')
+            dir = dir.replace('w', '')
+        else:
+            dir = dir.replace('n', '')
+            dir = dir.replace('s', '')
+
+        return dir
 
     def add_segment(self, starting_rect, cell_size):
         """add a segment to the snake"""

@@ -10,6 +10,7 @@ WINDOW_TITLE = 'A Silly Snake Game'
 RESOLUTION = (1600, 900)
 FPS = 60
 CELL_SIZE = 45
+SNAKE_SPEED = 4  # Tiles per Second
 
 
 class Game:
@@ -39,12 +40,12 @@ class Game:
         self.playing_field = PlayingField(
             RESOLUTION,
             CELL_SIZE,
-            10
         )
         self.snake = Snake(
             self._screen,
             self.playing_field.starting_rect,
-            CELL_SIZE
+            CELL_SIZE,
+            move_speed=SNAKE_SPEED
         )
 
     def start(self):

@@ -1,3 +1,5 @@
+from random import randint
+
 from pygame import Rect, draw
 
 
@@ -50,7 +52,8 @@ class PlayingField:
         self.build_field()
         self._set_rects()
 
-        self.starting_rect = self.cells[0][0].topleft
+        self.starting_rect = (self._left_edge, self._top_edge)
+        self.starting_rect = self.random_start()
 
     def build_field(self):
         """calculate initial cell location and build data strcuture"""
@@ -90,7 +93,7 @@ class PlayingField:
                 # remove element from structure
                 self.cells[c].pop(r)
 
-                # construct rect and insert to structure
+                # construct rect
                 cell = Rect(
                     (l_val, t_val),
                     (
@@ -98,9 +101,49 @@ class PlayingField:
                         self.cell_size-self.cell_margin
                     )
                 )
+
+                # properly align rect
+                cell.center = Rect(
+                    (l_val, t_val),
+                    (
+                        self.cell_size,
+                        self.cell_size
+                    )
+                ).center
+
+                # insert rect
                 self.cells[c].insert(r, cell)
                 t_val += self.cell_size
             l_val += self.cell_size
+
+    def random_start(self, margins=4):
+        """
+        Return a random top-left from the grid.
+
+        Paremeters
+        ----------
+        margins : int
+            Sets the margins for selecting a
+            random cell within the grid.
+        """
+        # double check if margins*2 exceed playing field
+        msg = "PlayingFieldError! Margins cannot " \
+              "exceed playing field size."
+        if margins*2 >= self.rows or margins*2 >= self.cols:
+            raise Exception(msg)
+
+        cells_tl = []
+
+        # pull cells inside margins
+        for x, col in enumerate(self.cells):
+            if x+1 > margins and x < len(self.cells) - margins:
+                for y, cell in enumerate(col):
+                    if y+1 > margins and y < len(col) - margins:
+                        cells_tl.append(cell.topleft)
+
+        # choose and return a random top-left value.
+        n = randint(1, len(cells_tl))-1
+        return cells_tl[n]
 
     def draw(self, surface):
         """draw the field"""
