@@ -8,6 +8,19 @@ TODO LIST
 
 
 
+Implemented snake self bite system.
+
+- fixed previously mentioned bug
+- found bug of misaligned checkerboard again.
+  might be snake alignment instead.
+- implemented segment placement opposite of the snake's moving
+  direction to prevent segment stacking and causing infinite respawn.
+- implemented a function to check if snake bit itself.
+- restructured snake respawn mechanic
+- refactored code
+
+
+
 Implemented respawn system.
 
 - implemented a simple snake respawn button.

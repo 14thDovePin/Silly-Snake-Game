@@ -139,11 +139,18 @@ class PlayingField:
             if x+1 > margins and x < len(self.cells) - margins:
                 for y, cell in enumerate(col):
                     if y+1 > margins and y < len(col) - margins:
-                        cells_tl.append(cell.topleft)
+                        cells_tl.append(cell)
 
         # choose and return a random top-left value.
         n = randint(1, len(cells_tl))-1
-        return cells_tl[n]
+        random_rect = cells_tl[n]
+
+        tl_rect = Rect(
+            (0, 0),
+            (self.cell_size, self.cell_size)
+        )
+        tl_rect.center = random_rect.center
+        return tl_rect
 
     def draw(self, surface):
         """draw the field"""

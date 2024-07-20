@@ -32,12 +32,13 @@ class Snake:
         self._dt = 0
         self._screen = screen
 
+        self.cell_size = cell_size
         self.tile_size = cell_size  # in pixels
         self.move_speed = move_speed  # tiles per second
         self.direction = self._set_direction(starting_rect)
         self._tps = 1000/self.move_speed  # ms/tps
         self.segments = {}
-        self.length = 1  # TODO: Remove after use.
+        self.starting_length = 3
 
         # Input Buffer
         self._ib_halt = False
@@ -46,10 +47,9 @@ class Snake:
         self._ib_stack = []
         self._ib_max = 3  # max no. of elements in stack
 
-        # create initial segment
-        self.add_segment(starting_rect, cell_size)
-        self.add_segment(starting_rect, cell_size)
-        self.add_segment(starting_rect, cell_size)
+        # create initial segments
+        for i in range(self.starting_length):
+            self.add_segment(starting_rect)
 
     def _set_direction(self, starting_pos):
         """returns a direction based on starting position"""
@@ -82,15 +82,27 @@ class Snake:
 
         return dir
 
-    def add_segment(self, starting_rect, cell_size):
+    def add_segment(self, starting_rect):
         """add a segment to the snake"""
-        # set identifier
+        # set identifier and modifier
         id = len(self.segments)+1
+        mod = self.cell_size*id
+
+        # segment position modifier based on direction
+        x, y = starting_rect[0], starting_rect[1]
+        if self.direction == 'n':
+            mod_rect = (x, y+mod)
+        if self.direction == 's':
+            mod_rect = (x, y-mod)
+        if self.direction == 'e':
+            mod_rect = (x-mod, y)
+        if self.direction == 'w':
+            mod_rect = (x+mod, y)
 
         # construct rectangle and position
         rect = Rect(
-            starting_rect,  # Left Top
-            (cell_size, cell_size)  # Width Height
+            mod_rect,  # Left Top
+            (self.cell_size, self.cell_size)  # Width Height
         )
         pos = Vector2(rect.center)
 
@@ -202,3 +214,31 @@ class Snake:
                 "#669900",
                 rect,
             )
+
+    def respawn(self, starting_rect):
+        """reset snake on playing field"""
+        # reset dt
+        self._dt = 0
+
+        # remove all segments.
+        self.segments.clear()
+
+        # set random spawn and direction
+        self.direction = self._set_direction(starting_rect)
+
+        # create starting segments
+        for i in range(self.starting_length):
+            self.add_segment(starting_rect)
+
+    def bite_self(self):
+        """check if the snake bit itself"""
+        # extract segment positions
+        positions = []
+        for key in list(self.segments.keys()):
+            positions.append(self.segments[key][1])
+
+        # check for duplicates
+        for pos in positions:
+            if positions.count(pos) != 1:
+                return True
+        return False
