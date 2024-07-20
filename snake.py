@@ -71,7 +71,7 @@ class Snake:
         # nearest border of the coordinate
         if left <= right: dir = dir.replace('w', '')
         else: dir = dir.replace('e', '')
-        if top <= bottom: dir = dir.replace('n', '')
+        if bottom <= top: dir = dir.replace('n', '')
         else: dir = dir.replace('s', '')
         if x <= y:
             dir = dir.replace('e', '')

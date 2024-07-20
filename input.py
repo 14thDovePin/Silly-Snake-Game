@@ -24,6 +24,15 @@ def _keydown_triggers(self, event):
     if check_key(key, K_d, K_RIGHT):
         print('right')
 
+    # Respawn Snake
+    if check_key(key, K_r):
+        self.snake.segments.clear()
+        direction = self.playing_field.random_start()
+        self.snake.direction = self.snake._set_direction(direction)
+        self.snake.add_segment(direction, 45)
+        self.snake.add_segment(direction, 45)
+        self.snake.add_segment(direction, 45)
+
     self.snake.input(event)
 
 def check_key(key, *match):

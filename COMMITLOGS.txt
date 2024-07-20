@@ -1,10 +1,21 @@
 TODO LIST
+- add death logic when hitting self.
+- add death logic when hitting edge
 - add fps & ups on screen
-- implement random spawn somewhere
-  in the middle of the playing field
 
 - implement menu
 - implement score system
+
+
+
+Implemented respawn system.
+
+- implemented a simple snake respawn button.
+- fixed bug where the random spawn of the snake
+  on the top or bottom makes it direction face
+  towards the nearest wall instead of the opposite.
+- updated todo list
+- refactored code
 
 
 
