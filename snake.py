@@ -242,3 +242,9 @@ class Snake:
             if positions.count(pos) != 1:
                 return True
         return False
+
+    def get_head_cords(self):
+        """returns the center coordinate of the head"""
+        key = list(self.segments.keys())[0]
+        head_cords = self.segments[key][0].center
+        return head_cords

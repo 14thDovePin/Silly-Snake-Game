@@ -22,7 +22,7 @@ class PlayingField:
     bottom_margin : int
         Set bottom margin in cells. Includes remainder from calculation.
 
-    Attributes
+    Attributes TODO: Update Accordingly
     ----------
     field : list of list of any
         Represents the playing field where:
@@ -168,3 +168,20 @@ class PlayingField:
 
                 # draw cell
                 draw.rect(surface, color, rect)
+
+    def outside_perimeter(self, cords):
+        """returns true if coordinates is outside perimeter"""
+        # get all edge coordinates
+        bottom_right = self.cells[-1][-1].bottomright
+        b, r = bottom_right[1], bottom_right[0]
+        l, t = self._left_edge, self._top_edge
+        # print(b, r)
+
+        x, y = cords[0], cords[1]
+
+        # check if coordinates is outside of perimeter
+        if x > r or x < l:
+            return True
+        if y > b or y < t:
+            return True
+        return False

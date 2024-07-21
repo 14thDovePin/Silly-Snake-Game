@@ -1,10 +1,20 @@
 TODO LIST
-- add death logic when hitting self.
 - add death logic when hitting edge
 - add fps & ups on screen
 
 - implement menu
 - implement score system
+
+
+
+Implemented snake out of field system.
+
+- implemented logic when snake goes
+  out of field or hits edge
+- implement a check if a coordinate
+  is outside the playing field
+- updated todo list
+- refactored code
 
 
 
